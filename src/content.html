@@ -12,9 +12,23 @@
 </head>
 
 <body class="bg-dark text-white">
-    <main id="clonedContentDiv"
-        class="w-100 d-flex flex-column align-items-center justify-content-center col-md-12 m-4 -p4">
-    </main>
+    <div class="container-fluid">
+        <div class="row d-flex align-content-center justify-content-center mt-4 m-4 p-4 gap-2">
+            <aside class="col-sm-2">
+                <h2>Actions:</h2>
+                <div class="d-flex flex-column gap-3 btn-group-lg" aria-label="Capture Content">
+                    <button type="button" id="articleBtn" class="w-100 btn btn-primary btn-lg rounded shadow-sm pe-auto"
+                        title="Save as PDF">Save as PDF</button>
+                    <button type="button" class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto"
+                        title="Save as HTML">Save as HTML</button>
+                    <button type="button" class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto "
+                        title="Save as Text">Save as Text</button>
+                </div>
+            </aside>
+            <main id="clonedContentDiv" class="col-sm-8 d-flex flex-column align-items-center justify-content-center">
+            </main>
+        </div>
+    </div>
     <script src="/src/content.js"></script>
     <script src="/src/background.js"></script>
 </body>

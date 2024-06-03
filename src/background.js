@@ -4,11 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
         if (chrome.runtime.lastError) {
             console.error("Error retrieving captured content:", chrome.runtime.lastError);
         } else {
-            console.log("Retrieved Captured Content:", data.capturedContent); // Log retrieved content
+            console.log("Retrieved Captured Content:\n\n", data.capturedContent); // Log retrieved content
             // append the captured content to the body of the new tab
             if (data.capturedContent) {
                 document.getElementById("clonedContentDiv").innerHTML = data.capturedContent;
             }
+        }
+    });
+
+    // retrieve the document's title
+    chrome.storage.local.get("documentTitle", (title) => {
+        if (chrome.runtime.lastError) {
+            console.error("Error retrieving captured content:", chrome.runtime.lastError);
+        } else {
+            document.title = title.documentTitle;
+            console.log(title.documentTitle);
         }
     });
 });

@@ -29,6 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.log("New tab have been created:", tab);
                     });
                 });
+
+                // query to store data of the article's name to later pass onto the
+                // newly created content.html
+                chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                    let currentTab = tabs[0]; // there will be only one in this array
+                    let tabTitle = currentTab.title;
+
+                    chrome.storage.local.set({ documentTitle: tabTitle }, function () {
+                        // callback function code will be in here if it'll be needed
+                    });
+                });
+
             });
         });
     } else {
