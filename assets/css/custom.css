@@ -1,0 +1,41 @@
+*>img {
+    pointer-events: none;
+}
+
+body {
+    resize: none;
+}
+
+#mainContent {
+    width: 512px;
+    height: fit-content;
+}
+
+.logo {
+    width: 256px;
+    height: auto;
+}
+
+.wrapper>section>p {
+    text-wrap: pretty;
+}
+
+/* Hide the unnecessary parts of the article */
+
+/* IDs */
+
+#comments,
+#hide-comments-modal,
+#hide-comments-modal__form {
+    display: none;
+}
+
+/* Classnames */
+
+.multiple_reactions_engagement,
+.spec__tags,
+.crayons-field,
+.crayons-card--secondary,
+.highlight__panel {
+    display: none;
+}

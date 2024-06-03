@@ -1,0 +1,54 @@
+{
+    "name": "Dev Community Content-to-PDF",
+    "author": "Derviş Öksüzoğlu",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "incognito": "not_allowed",
+    "icons": {
+        "16": "icons/icon16x16.png",
+        "32": "icons/icon32x32.png",
+        "48": "icons/icon48x48.png",
+        "128": "icons/icon128x128.png"
+    },
+    "background": {
+        "service_worker": "src/background.js"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_title": "Dev Community Content-to-PDF",
+        "default_icon": {
+            "16": "icons/icon16x16.png",
+            "48": "icons/icon48x48.png"
+        }
+    },
+    "host_permissions": [
+        "https://*.dev.to/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*.dev.to/*"
+            ],
+            "js": [
+                "src/app.js"
+            ]
+        }
+    ],
+    "minimum_edge_version": "90",
+    "default_locale": "en",
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "/images/logo.png"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

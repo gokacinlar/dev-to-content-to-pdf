@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+    <title>Dev Community Content-to-PDF</title>
+    <link rel="stylesheet" type="text/css" href="/src/lib/bootstrap.min.css" as="style">
+    <link rel="stylesheet" type="text/css" href="/assets/css/custom.css" as="style">
+</head>
+
+<body class="bg-dark text-white">
+    <main id="mainContent" class="d-flex flex-column gap-4 m-4">
+        <div class="wrapper w-100 d-flex flex-row align-items-center justify-content-center gap-3">
+            <section class="d-flex flex-column gap-2">
+                <h1 class="text-wrap">Dev Community Content-to-PDF</h1>
+                <p>Effortlessly create PDFs from your favorite Dev Community articles!</p>
+            </section>
+            <section>
+                <img class="logo img-fluid rounded shadow-sm" src="/images/logo.png" alt="Dev Community Content-to-PDF"
+                    title="Dev Community Content-to-PDF">
+            </section>
+        </div>
+        <div class="w-100 gap-3" aria-label="Capture Content">
+            <button type="button" id="articleBtn" class="w-100 btn btn-primary btn-lg rounded shadow-sm pe-auto"
+                title="Capture target article">Capture Article</button>
+        </div>
+    </main>
+    <script src="/src/app.js"></script>
+    <script type="module" src="/src/background.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+{
+    "extensionName": {
+        "message": "Dev Community Content-to-PDF",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "An extension to effortlesly create PDFs from your favorite Dev Community articles.",
+        "description": "Description of the extension."
+    }
+}
