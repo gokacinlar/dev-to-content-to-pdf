@@ -1,4 +1,4 @@
-# [Dev.to](https://microsoftedge.microsoft.com/addons/detail/duplicate-favorites-remov/oniadjdhgdpkafdjnmmbnecpcmmjjlfm) Community Content-to-PDF Creator
+# [Dev.to](https://dev.to) Community Content-to-PDF Creator
 ![Logo](images/logo.png)
 
 This extension allows you to create PDFs from the content of your favorite Dev.to community articles.
