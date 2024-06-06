@@ -3,7 +3,11 @@
 
 This extension allows you to create PDFs from the content of your favorite Dev.to community articles.
 
-## Important Note!
+## Compatible Browsers
+
+- Google Chrome and Chromium derivatives
+
+## Important Note
 
 This is **not a production-ready code** and _should not be used yet_.
 
