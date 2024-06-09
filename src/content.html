@@ -17,8 +17,9 @@
             <aside class="col-sm-2">
                 <h2>Actions:</h2>
                 <div class="d-flex flex-column gap-3 btn-group-lg" aria-label="Capture Content">
-                    <button type="button" id="articleBtn" class="w-100 btn btn-primary btn-lg rounded shadow-sm pe-auto"
-                        title="Save as PDF">Save as PDF</button>
+                    <button id="saveAsPdf" type="button" id="articleBtn"
+                        class="w-100 btn btn-primary btn-lg rounded shadow-sm pe-auto" title="Save as PDF">Save as
+                        PDF</button>
                     <button id="saveAsHtml" type="button"
                         class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto" title="Save as HTML">Save as
                         HTML</button>
@@ -33,6 +34,9 @@
     </div>
     <script src="/src/content.js"></script>
     <script src="/src/background.js"></script>
+    <!--Library folders-->
+    <script src="/src/lib/html2canvas.js"></script>
+    <script src="/src/lib/jspdf.umd.min.js"></script>
 </body>
 
 </html>
