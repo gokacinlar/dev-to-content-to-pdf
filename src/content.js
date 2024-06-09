@@ -14,41 +14,27 @@ chrome.storage.local.get("documentTitle", (title) => {
                 /**
                  * Save the content as PDF
                  */
-
                 const saveAsPdfButton = document.getElementById("saveAsPdf");
                 if (saveAsPdfButton) {
                     saveAsPdfButton.addEventListener("click", generateArticlePDF);
                 }
 
+                // not rendering correctly
+                // fix me
                 function generateArticlePDF() {
-                    // initialize html2canvas library
-                    window.html2canvas = html2canvas;
-
                     const articleSource = document.getElementById("clonedContentDiv");
                     if (articleSource) {
-                        // fix me
-                        articleSource.innerHTML = data.capturedContent;
-                        // initialize the jspdf object & class
-                        const { jsPDF } = window.jspdf;
-                        var newPdf = new jsPDF("p", "mm", "a4"); // 'p' for portrait, 'mm' for millimeters, 'a4' for A4 size
-                        console.log("Starting to generate PDF");
-
-                        newPdf.html(articleSource, {
-                            callback: function (doc) {
-                                console.log("HTML content added to PDF, now saving...");
-                                doc.save("document.pdf");
-                                // open PDF in a new window after content is added
-                                doc.output("dataurlnewwindow");
-                            },
-                            x: 15,
-                            y: 15,
-                            orientation: 'p',
-                            unit: 'pt',
-                            format: 'letter',
-                            putOnlyUsedFonts: true,
-                            compress: true,
-                            windowWidth: 180
-                        });
+                        html2pdf(articleSource)
+                        // html2pdf options
+                        var opt = {
+                            margin: 0,
+                            filename: `${articleName}.pdf`,
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 1 },
+                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                        };
+                        // save with new promise based api
+                        html2pdf().set(opt).from(articleSource).save();
                     }
                 }
 
@@ -65,12 +51,6 @@ chrome.storage.local.get("documentTitle", (title) => {
 
                 // define the content
                 const documentContent = data.capturedContent;
-                if (documentContent) {
-                    console.log(documentContent);
-                } else {
-                    console.error("Document content could not be retrieved.");
-                    return;
-                }
 
                 // define the function to save HTML DOM as plain text via blob
                 function downloadHtmlBlob(blob, name = "file.html") {

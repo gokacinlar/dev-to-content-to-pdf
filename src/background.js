@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error retrieving captured content:", chrome.runtime.lastError);
         } else {
             document.title = title.documentTitle;
-            console.log(title.documentTitle);
+            console.log("Article title:", title.documentTitle);
         }
     });
 });
