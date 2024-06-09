@@ -25,3 +25,5 @@ On the other hand, if you want to run the extension locally, follow these steps:
 ## Dependencies
 
 - `Bootstrap 5.3.3`
+- `html2canvas 1.4.1`
+- `jsPDF 2.5.1`
