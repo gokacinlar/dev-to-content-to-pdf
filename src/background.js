@@ -7,7 +7,53 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Retrieved Captured Content:\n\n", data.capturedContent); // Log retrieved content
             // append the captured content to the body of the new tab
             if (data.capturedContent) {
-                document.getElementById("clonedContentDiv").innerHTML = data.capturedContent;
+                // inject the data onto DOM
+                const contentDocument = document.getElementById("clonedContentDiv");
+                contentDocument.innerHTML = data.capturedContent;
+
+                /**
+                 *  Remove the unnecessary elements within the article
+                 */
+                let classesToRemove = [
+                    ".multiple_reactions_engagement",
+                    ".spec__tags",
+                    ".crayons-field",
+                    ".crayons-card--secondary",
+                    ".highlight__panel",
+                    ".comments"
+                ];
+
+                classesToRemove.forEach(className => {
+                    let classElement = document.querySelector(className);
+                    if (classElement) {
+                        classElement.parentNode.removeChild(classElement);
+                    };
+                });
+
+                let idsToRemove = [
+                    "#comments",
+                    "#hide-comments-modal",
+                    "#hide-comments-modal__form"
+                ];
+
+                idsToRemove.forEach(id => {
+                    let idElement = document.querySelector(id);
+                    if (idElement) {
+                        idElement.parentNode.removeChild(idElement);
+                    }
+                });
+
+                /**
+                 * Specific styling of DOM elements
+                 * if needed
+                 */
+
+                const articleImages = document.querySelectorAll("img");
+                if (articleImages) {
+                    articleImages.forEach(elem => {
+                        elem.setAttribute("class", "img-fluid rounded");
+                    });
+                }
             }
         }
     });
