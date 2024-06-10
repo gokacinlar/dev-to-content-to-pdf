@@ -14,28 +14,46 @@ chrome.storage.local.get("documentTitle", (title) => {
                 /**
                  * Save the content as PDF
                  */
+
                 const saveAsPdfButton = document.getElementById("saveAsPdf");
+                const spinner = saveAsPdfButton.querySelector(".spinner-border");
+                const buttonText = saveAsPdfButton.querySelector(".button-text");
+
                 if (saveAsPdfButton) {
                     saveAsPdfButton.addEventListener("click", generateArticlePDF);
                 }
 
-                // not rendering correctly
-                // fix me
+                spinner.classList.add("d-none");
+                buttonText.classList.remove("d-none");
+
                 function generateArticlePDF() {
-                    const articleSource = document.getElementById("clonedContentDiv");
-                    if (articleSource) {
-                        html2pdf(articleSource)
-                        // html2pdf options
-                        var opt = {
-                            margin: 0,
-                            filename: `${articleName}.pdf`,
-                            image: { type: 'jpeg', quality: 0.98 },
-                            html2canvas: { scale: 1 },
-                            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                        };
-                        // save with new promise based api
-                        html2pdf().set(opt).from(articleSource).save();
-                    }
+                    // show the spinner and hide the text
+                    spinner.classList.remove("d-none");
+                    buttonText.classList.add("d-none");
+                    setTimeout(() => {
+                        const articleSource = document.getElementById("clonedContentDiv");
+                        // article styling
+                        // ugly as hell on implementation but works for now
+                        articleSource.style.width = "98%";
+                        articleSource.style.margin = "0";
+                        articleSource.style.padding = ".75em";
+                        if (articleSource) {
+                            html2pdf(articleSource)
+                            // html2pdf options
+                            var opt = {
+                                margin: 0,
+                                filename: `${articleName}.pdf`,
+                                image: { type: 'jpeg', quality: 1 },
+                                html2canvas: { scale: 1 },
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                            };
+                            // save with new promise based api
+                            html2pdf().set(opt).from(articleSource).save();
+                        }
+                        // revert back to old button styling
+                        spinner.classList.add("d-none");
+                        buttonText.classList.remove("d-none");
+                    }, 500);
                 }
 
                 /**
