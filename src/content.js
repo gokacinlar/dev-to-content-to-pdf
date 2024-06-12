@@ -45,6 +45,7 @@ chrome.storage.local.get("documentTitle", (title) => {
                                 filename: `${articleName}.pdf`,
                                 image: { type: 'jpeg', quality: 1 },
                                 html2canvas: { scale: 1 },
+                                pagebreak: { mode: 'avoid-all' },
                                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                             };
                             // save with new promise based api
@@ -128,7 +129,7 @@ chrome.storage.local.get("documentTitle", (title) => {
                     const cleanedTextBlob = new Blob([cleanedText], { type: "text/plain" });
 
                     saveAsTextButton.addEventListener("click", () => {
-                        downloadTextBlob(cleanedTextBlob, `${articleName}`);
+                        downloadTextBlob(cleanedTextBlob, `${articleName}.txt`);
                     });
                 }
                 reader.readAsText(new Blob([documentContent], { type: "text/plain" }));
