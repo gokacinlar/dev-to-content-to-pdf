@@ -19,9 +19,7 @@ chrome.storage.local.get("documentTitle", (title) => {
                 const spinner = saveAsPdfButton.querySelector(".spinner-border");
                 const buttonText = saveAsPdfButton.querySelector(".button-text");
 
-                if (saveAsPdfButton) {
-                    saveAsPdfButton.addEventListener("click", generateArticlePDF);
-                }
+                saveAsPdfButton.addEventListener("click", generateArticlePDF);
 
                 spinner.classList.add("d-none");
                 buttonText.classList.remove("d-none");
@@ -46,15 +44,18 @@ chrome.storage.local.get("documentTitle", (title) => {
                                 image: { type: 'jpeg', quality: 1 },
                                 html2canvas: { scale: 1 },
                                 pagebreak: { mode: 'avoid-all' },
-                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                                enableLinks: true
                             };
                             // save with new promise based api
-                            html2pdf().set(opt).from(articleSource).save();
+                            html2pdf().set(opt).from(articleSource).save().then();
+                        } else {
+                            return alert("Article source could not be found!");
                         }
                         // revert back to old button styling
                         spinner.classList.add("d-none");
                         buttonText.classList.remove("d-none");
-                    }, 500);
+                    }, 250);
                 }
 
                 /**
@@ -62,11 +63,9 @@ chrome.storage.local.get("documentTitle", (title) => {
                  */
 
                 const saveAsHtmlButton = document.getElementById("saveAsHtml");
-                if (saveAsHtmlButton) {
-                    saveAsHtmlButton.addEventListener("click", () => {
-                        downloadHtmlBlob(htmlBlob, `${articleName}`);
-                    });
-                }
+                saveAsHtmlButton.addEventListener("click", () => {
+                    downloadHtmlBlob(htmlBlob, `${articleName}.html`);
+                });
 
                 // define the content
                 const documentContent = data.capturedContent;
@@ -78,10 +77,7 @@ chrome.storage.local.get("documentTitle", (title) => {
 
                     link.style.display = "none";
                     link.href = blobUrl;
-
-                    // optional code to rename output .htm to .html
-                    // fix me
-                    // link.download = name.replace(/\.[^.]+$/, ".html");
+                    link.download = name;
 
                     document.body.appendChild(link);
                     link.click();
@@ -95,16 +91,25 @@ chrome.storage.local.get("documentTitle", (title) => {
                  */
 
                 // function to format the output of the content on TXT file
-                function removeHtmlTags(input) {
-                    // ai generated regex
-                    let cleanedText = input.replace(/<\/?[^>]+(>|$)/g, " "); // replace HTML tags with a space
+                function formatTextWithoutHtml(input) {
+                    let originalText = input.replace(/<\/?[^>]+(>|$)/g, " ");
+                    let cleanedText = originalText.replace(/^\s*[\r\n]/gm, " ");
+                    let divWrapper = document.createElement("div");
+                    divWrapper.innerHTML = cleanedText;
+                    return cleanedText;
+                }
 
-                    cleanedText = cleanedText.replace(/\s\s+/g, " ").trim(); // replace multiple spaces with a single space
-
+                // function to format the output of the content on TXT file
+                // including HTML tags
+                function formatTextWithHtml(input) {
+                    let cleanedText = input;
+                    let divWrapper = document.createElement("div");
+                    divWrapper.innerHTML = cleanedText.replace(/(<([^>]+)>)/ig, "");;
                     return cleanedText;
                 }
 
                 const saveAsTextButton = document.getElementById("saveAsText");
+                const saveAsTextWithHtmlButton = document.getElementById("saveAsTextWithHtml");
 
                 function downloadTextBlob(blob, name = "file.txt") {
                     const blobUrl = URL.createObjectURL(blob);
@@ -125,14 +130,28 @@ chrome.storage.local.get("documentTitle", (title) => {
                 const reader = new FileReader();
                 reader.onload = function () {
                     const text = reader.result;
-                    const cleanedText = removeHtmlTags(text);
+                    const cleanedText = formatTextWithoutHtml(text);
                     const cleanedTextBlob = new Blob([cleanedText], { type: "text/plain" });
 
                     saveAsTextButton.addEventListener("click", () => {
                         downloadTextBlob(cleanedTextBlob, `${articleName}.txt`);
                     });
                 }
+
                 reader.readAsText(new Blob([documentContent], { type: "text/plain" }));
+
+                const readerForHtmlText = new FileReader();
+                readerForHtmlText.onload = function () {
+                    const text = readerForHtmlText.result;
+                    const cleanedTextWithHtml = formatTextWithHtml(text);
+                    const cleanedTextWithHtmlBlob = new Blob([cleanedTextWithHtml], { type: "text/plain" });
+
+                    saveAsTextWithHtmlButton.addEventListener("click", () => {
+                        downloadTextBlob(cleanedTextWithHtmlBlob, `${articleName}.txt`)
+                    })
+                }
+
+                readerForHtmlText.readAsText(new Blob([documentContent], { type: "text/plain" }));
             }
         });
     }
