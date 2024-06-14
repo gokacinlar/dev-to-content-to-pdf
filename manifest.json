@@ -1,7 +1,7 @@
 {
     "name": "Dev Community Content-to-PDF",
     "author": "Derviş Öksüzoğlu",
-    "version": "1.0.1-beta",
+    "version": "1.0.2-beta",
     "manifest_version": 3,
     "incognito": "not_allowed",
     "description": "An extension to effortlessly create PDFs from your favorite Dev Community articles.",
