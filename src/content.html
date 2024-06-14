@@ -15,8 +15,8 @@
     <div class="container-fluid">
         <div class="row d-flex flex-row align-content-center justify-content-center mt-4 p-4 gap-2">
             <aside class="col-12 col-sm-12 col-md-2">
-                <h2>Actions:</h2>
-                <div class="d-flex flex-column gap-3 btn-group-lg" aria-label="Capture Content">
+                <h2 class="display-6">Actions:</h2>
+                <div class="d-flex flex-column gap-3 btn-group-lg shadow-sm" aria-label="Capture Content">
                     <button id="saveAsPdf" type="button" class="w-100 btn btn-primary btn-lg rounded shadow-sm pe-auto"
                         title="Save as PDF">
                         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
@@ -26,10 +26,17 @@
                         class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto" title="Save as HTML">
                         Save as HTML
                     </button>
-                    <button id="saveAsText" type="button"
-                        class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto" title="Save as Text">
-                        Save as Text
-                    </button>
+                    <div class="btn-group-lg d-flex flex-column gap-3">
+                        <button id="saveAsText" type="button"
+                            class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto" title="Save as Text">
+                            Save as Text
+                        </button>
+                        <button id="saveAsTextWithHtml" type="button"
+                            class="w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto"
+                            title="Save as Text With HTML">
+                            Save as Text (include HTML)
+                        </button>
+                    </div>
                 </div>
             </aside>
             <main id="clonedContentDiv" class="col-12 col-sm-12 col-md-8 rounded">
