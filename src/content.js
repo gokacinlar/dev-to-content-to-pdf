@@ -21,40 +21,45 @@ chrome.storage.local.get("documentTitle", (title) => {
 
                 saveAsPdfButton.addEventListener("click", generateArticlePDF);
 
-                spinner.classList.add("d-none");
-                buttonText.classList.remove("d-none");
-
-                function generateArticlePDF() {
+                function initialButtonStage() {
                     // show the spinner and hide the text
                     spinner.classList.remove("d-none");
                     buttonText.classList.add("d-none");
+                }
+
+                function beginSpinner() {
+                    spinner.classList.add("d-none");
+                    buttonText.classList.remove("d-none");
+                }
+
+                function stylingArticle(elem) {
+                    elem.style.width = "98%";
+                    elem.style.padding = ".75em";
+                }
+
+                function generateArticlePDF() {
+                    initialButtonStage();
                     setTimeout(() => {
                         const articleSource = document.getElementById("clonedContentDiv");
-                        // article styling
-                        // ugly as hell on implementation but works for now
-                        articleSource.style.width = "98%";
-                        articleSource.style.margin = "0";
-                        articleSource.style.padding = ".75em";
+                        stylingArticle(articleSource);
                         if (articleSource) {
-                            html2pdf(articleSource)
                             // html2pdf options
                             var opt = {
                                 margin: 0,
                                 filename: `${articleName}.pdf`,
-                                image: { type: 'jpeg', quality: 1 },
-                                html2canvas: { scale: 1 },
+                                image: { type: 'jpeg', quality: 5 },
+                                html2canvas: { scale: 4, letterRendering: 1, allowTaint: true },
                                 pagebreak: { mode: 'avoid-all' },
                                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
                                 enableLinks: true
                             };
                             // save with new promise based api
-                            html2pdf().set(opt).from(articleSource).save().then();
+                            html2pdf().set(opt).from(articleSource).save();
                         } else {
+                            beginSpinner();
                             return alert("Article source could not be found!");
                         }
-                        // revert back to old button styling
-                        spinner.classList.add("d-none");
-                        buttonText.classList.remove("d-none");
+                        beginSpinner();
                     }, 250);
                 }
 
@@ -93,7 +98,7 @@ chrome.storage.local.get("documentTitle", (title) => {
                 // function to format the output of the content on TXT file
                 function formatTextWithoutHtml(input) {
                     let originalText = input.replace(/<\/?[^>]+(>|$)/g, " ");
-                    let cleanedText = originalText.replace(/^\s*[\r\n]/gm, " ");
+                    let cleanedText = originalText.replace(/^\h\s*[\r\n]/gm, " ");
                     let divWrapper = document.createElement("div");
                     divWrapper.innerHTML = cleanedText;
                     return cleanedText;
