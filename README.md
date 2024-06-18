@@ -10,7 +10,10 @@ This extension allows you to create PDFs from the content of your favorite Dev.t
 
 ## Usage
 
-Extension will be accessible upon approval from Microsoft & Google to be listed in their extension stores.
+Extension is accessible in;
+
+- [Chrome Web Store](https://chromewebstore.google.com/detail/dev-community-content-to/nmnfmgnebdkhboackclnhecbcjhhflak)
+- Microsoft Edge Add-on Store **(pending)**
 
 On the other hand, if you want to run the extension locally, follow these steps:
 
