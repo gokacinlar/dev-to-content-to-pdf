@@ -27,14 +27,20 @@ chrome.storage.local.get("documentTitle", (title) => {
                     buttonText.classList.add("d-none");
                 }
 
-                function beginSpinner() {
+                function spinnerStage() {
                     spinner.classList.add("d-none");
                     buttonText.classList.remove("d-none");
                 }
 
                 function stylingArticle(elem) {
-                    elem.style.width = "98%";
-                    elem.style.padding = ".75em";
+                    const changedWidth = elem;
+                    changedWidth.setAttribute("style", "width: 98%;");
+                }
+
+                function revertArticle(elem) {
+                    const revertedWidth = elem;
+                    revertedWidth.removeAttribute("style", "width: 98%;");
+                    revertedWidth.setAttribute("class", "col-12 col-sm-12 col-md-8 rounded");
                 }
 
                 function generateArticlePDF() {
@@ -54,12 +60,14 @@ chrome.storage.local.get("documentTitle", (title) => {
                                 enableLinks: true
                             };
                             // save with new promise based api
-                            html2pdf().set(opt).from(articleSource).save();
+                            html2pdf().set(opt).from(articleSource).save().then(()=> {
+                                revertArticle(articleSource);
+                            });
                         } else {
-                            beginSpinner();
+                            initialButtonStage();
                             return alert("Article source could not be found!");
                         }
-                        beginSpinner();
+                        spinnerStage();
                     }, 250);
                 }
 
