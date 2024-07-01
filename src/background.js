@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    documentStyling();
     // retrieve the captured content data from chrome storage
     chrome.storage.local.get("capturedContent", (data) => {
         if (chrome.runtime.lastError) {
@@ -68,6 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+function documentStyling() {
+    const documentObj = {
+        buttonStyling: "w-100 btn btn-secondary btn-lg rounded shadow-sm pe-auto"
+    }
+
+    const saveButtons = document.querySelectorAll(".save-btn");
+
+    saveButtons.forEach((elem) => {
+        elem.setAttribute("class", documentObj.buttonStyling);
+    });
+}
 
 // check if service worker is active.
 chrome.runtime.onInstalled.addListener(function () {

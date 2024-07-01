@@ -60,7 +60,7 @@ chrome.storage.local.get("documentTitle", (title) => {
                                 enableLinks: true
                             };
                             // save with new promise based api
-                            html2pdf().set(opt).from(articleSource).save().then(()=> {
+                            html2pdf().set(opt).from(articleSource).save().then(() => {
                                 revertArticle(articleSource);
                             });
                         } else {
