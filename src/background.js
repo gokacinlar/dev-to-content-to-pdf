@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 // inject the data onto DOM
                 const contentDocument = document.getElementById("clonedContentDiv");
                 contentDocument.innerHTML = data.capturedContent;
-
                 /**
                  *  Remove the unnecessary elements within the article
                  */
@@ -25,10 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 ];
 
                 classesToRemove.forEach(className => {
-                    let classElement = document.querySelector(className);
-                    if (classElement) {
+                    let classElements = contentDocument.querySelectorAll(className);
+                    classElements.forEach(classElement => {
                         classElement.parentNode.removeChild(classElement);
-                    };
+                    });
                 });
 
                 let idsToRemove = [
@@ -38,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ];
 
                 idsToRemove.forEach(id => {
-                    let idElement = document.querySelector(id);
+                    let idElement = contentDocument.querySelector(id);
                     if (idElement) {
                         idElement.parentNode.removeChild(idElement);
                     }
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                  * if needed
                  */
 
-                const articleImages = document.querySelectorAll("img");
+                const articleImages = contentDocument.querySelectorAll("img");
                 if (articleImages) {
                     articleImages.forEach(elem => {
                         elem.setAttribute("class", "img-fluid rounded");
