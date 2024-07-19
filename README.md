@@ -22,9 +22,12 @@ On the other hand, if you want to run the extension locally, follow these steps:
    - Manage Extensions > Turn on Developer Mode > Click "Load Unpacked"
 3. Enjoy!
 
-## Dependencies
+## Frameworks Used
 
 - `Bootstrap 5.3.3`
+
+## Dependencies
+
 - `html2canvas 1.4.1`
 - `html2pdf 0.10.1`
 - `jsPDF 2.5.1`
